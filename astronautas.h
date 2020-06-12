@@ -20,6 +20,6 @@ StAstronauta especialidad(StAstronauta nuevo);
 void listaDeAtronautas(char Nombre[]);
 void mostrarAstronauta(StAstronauta a);
 void mostrarUnAstronauta(char Nombre[]);
-void listaDeAtronautas2 (StAstronauta a);
+void listaDeAtronautas2(char Nombre[], StAstronauta a);
 
 #endif // ASTRONAUTAS_H_INCLUDED

@@ -6,7 +6,7 @@ void altaDeAstronauta(char Nombre[])
 {
     char control = 's';
     StAstronauta a;
-    FILE * archi = fopen(Nombre, "wb");
+    FILE * archi = fopen(Nombre, "ab");
     if(archi != NULL)
         {
         while(control == 's')
@@ -153,17 +153,17 @@ void mostrarUnAstronauta(char Nombre[])
     FILE * archi = fopen(Nombre, "rb");
     if(archi != NULL)
         {
-           // listaDeAtronautas2(a);
+            listaDeAtronautas2(Nombre, a);
 
         }else
         {
             printf("Error!!");
         }
-
+    fclose(archi);
     int opc;
     printf("Ingrese el ID del Astronauta que desea ver: ");
-    scanf("%d",&opc);
-    system("cls");
+    scanf("%i",&opc);
+
 
     fopen(Nombre, "rb" );
     if(archi != NULL)
@@ -172,7 +172,8 @@ void mostrarUnAstronauta(char Nombre[])
                 {
                     if(opc == a.ID)
                         {
-     //                       listaDeAtronautas2(a);
+                            mostrarAstronauta(a);
+                            system("pause");
                         }
                 }
             fclose(archi);
@@ -182,18 +183,42 @@ void mostrarUnAstronauta(char Nombre[])
         }
 }
 
-//Esta segunda lista solo te muestra el nombre y el ID de los astronautas
-/*void listaDeAtronautas2 (StAstronauta a)
+void listaDeAtronautas2(char Nombre[], StAstronauta a)
 {
+    FILE * archi = fopen(Nombre, "rb");
+   if(archi != NULL)
+        {
             printf("---- Lista de Astronautas ----\n");
             while(fread(&a, sizeof(StAstronauta), 1, archi) > 0)
                 {
                     printf("Nombre: %s , ID: %d \n",a.Nombre, a.ID);
                 }
+
+        }else
+        {
+            printf("Error!!");
+        }
 }
 
-void bajaDeAstronauta(char nombre[])
+/* void bajaDeAstronauta(char Nombre[])
 {
+    int opc;
+    StAstronauta a;
+    FILE * archi = fopen(Nombre, "rb" );
+    if(archi != NULL)
+        {
+            listaDeAtronautas2(Nombre, a);
+        }else
+        {
+            printf("Error!!");
+        }
+    fclose(archi);
 
-}
- */
+    printf("Ingrese el ID del Astronauta que desea dar de baja: ");
+    scanf("%i",&opc);
+
+    archi = fopen(Nombre, "wb");
+
+} */
+
+

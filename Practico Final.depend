@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1591935179 source:e:\martin\practico final\main.c
+	<stdio.h>
+	<stdlib.h>
+	"astronautas.h"
+
+1591935569 e:\martin\practico final\astronautas.h
+
+1591935571 source:e:\martin\practico final\astronautas.c
+	<stdio.h>
+	<stdlib.h>
+	"astronautas.h"
+	"string.h"
+

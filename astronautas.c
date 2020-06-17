@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "astronautas.h"
 #include "string.h"
+
+//FUNCION PARA EL ALTA DE UN NUEVO ASTRONAUTA
 void altaDeAstronauta(char Nombre[])
 {
     char control = 's';
@@ -17,6 +19,7 @@ void altaDeAstronauta(char Nombre[])
                 printf("Si desea continuar presione S, de lo contrario N: ");
                 fflush(stdin);
                 scanf("%c",&control);
+                system("cls");
             }
         fclose(archi);
         }else
@@ -24,7 +27,7 @@ void altaDeAstronauta(char Nombre[])
             printf("El archivo no abrio correctamente");
         }
 }
-
+//FUNCION COMPLEMENTARIA A LA F. DEL ALTA
 StAstronauta nuevoAstronauta()
 {
     StAstronauta nuevo;
@@ -46,12 +49,13 @@ StAstronauta nuevoAstronauta()
 
     printf("Ingrese su edad: ");
     scanf("%i",&nuevo.Edad);
+    nuevo = verificEDAD(nuevo);
 
     printf("Ingrese su Nacionalidad: ");
     fflush(stdin);
     gets(&nuevo.Nacionalidad);
 
-    nuevo = especialidad(nuevo);
+    nuevo = especialidad(nuevo); //SE LE HIZO UNA FUNCION ESPECIAL PARA UNA MEJOR LEGIBILIDAD Y FUNCIONABILIDAD DEL CODIGO
 
     printf("Ingrese su cantidad de horas de vuelo acumuladas: ");
     scanf("%i",&nuevo.Experiencia);
@@ -66,12 +70,10 @@ StAstronauta nuevoAstronauta()
 
     return nuevo;
 }
-
+//FUNCION COMPLEMENTARIA A LA F. NUEVOASTRAONAUTA
  StAstronauta especialidad(StAstronauta nuevo)
 {
-    //piloto, astrofísico, ingeniero espacial, biólogo, etc
     int opc;
-    //printf("\n");
     printf("1. Piloto \n");
     printf("2. Astrofisico \n");
     printf("3. Ingeniero especial \n");
@@ -98,12 +100,14 @@ StAstronauta nuevoAstronauta()
         printf("Ingrese su especialidad: ");
         fflush(stdin);
         scanf("%s",&nuevo.Especialidad);
+        break;
     default :
         printf("Error");
     }
     return nuevo;
 }
 
+//FUNCION PARA MOSTRAR A TODOS LOS ASTRONAUTAS
 void listaDeAtronautas(char Nombre[])
 {
     StAstronauta a;
@@ -111,7 +115,7 @@ void listaDeAtronautas(char Nombre[])
     FILE * archi = fopen(Nombre, "rb");
     if(archi != NULL)
         {
-            printf("------------------------------- \n");
+            printf("---------------------------------------- \n");
             while(fread(&a, sizeof(StAstronauta), 1, archi) > 0)
                 {
                     mostrarAstronauta(a);
@@ -124,28 +128,30 @@ void listaDeAtronautas(char Nombre[])
     printf("\n El archivo cerro con: %d datos \n",cant);
 }
 
+//FUNCION PARA MOSTRAR UN ASTRONAUTA DE MANERA COMPLETA
 void mostrarAstronauta(StAstronauta a)
 {
-    printf("ID del Astronauta: %i \n", a.ID);
-    printf("Nombre del Astronauta: %s \n", a.Nombre);
-    printf("Apellido del Atronauta: %s \n", a.Apellido);
-    printf("Apodo del Astronauta: %s \n", a.Apodo);
-    printf("La edad del Astronauta: %i \n", a.Edad);
-    printf("La nacionalidad del Astronauta: %s \n", a.Nacionalidad);
-    printf("La especialidad del Astronauta es: %s \n", a.Especialidad);
-    printf("Las horas de vuelo acumuladas del Astronauta son: %i \n", a.Experiencia);
-    printf("Las misiones especiales realizadas por el Astronauta son: %i \n", a.misionesR);
-    printf("Las horas acumuladas en la Estacion Espacial Internacional del Astronauta son: %i \n", a.HorasA);
+    printf("..............ID del Astronauta es: %i \n", a.ID);
+    printf("..........Nombre del Astronauta es: %s \n", a.Nombre);
+    printf("........Apellido del Atronauta  es: %s \n", a.Apellido);
+    printf("...........Apodo del Astronauta es: %s \n", a.Apodo);
+    printf(".........La edad del Astronauta es: %i \n", a.Edad);
+    printf(".La nacionalidad del Astronauta es: %s \n", a.Nacionalidad);
+    printf(".La especialidad del Astronauta es: %s \n", a.Especialidad);
+    printf(".Las horas de vuelo acumuladas son: %i \n", a.Experiencia);
+    printf(".......Las misiones realizadas son: %i \n", a.misionesR);
+    printf("Las horas acumuladas en la EEI son: %i \n", a.HorasA);
     if(a.Estado == 1)
         {
-            printf("El estado del Astronauta es ACTIVO \n");
+            printf(".......El estado del Astronauta es: ACTIVO \n");
         }else
         {
-            printf("El estado del Astronauta es RETIRADO \n");
+            printf(".......El estado del Astronauta es: RETIRADO \n");
         }
-    printf("------------------------------- \n");
+    printf("---------------------------------------- \n");
 }
 
+//FUNCION PARA MOSTRAR EL ASTRONAUTA QUE EL CLIENTE QUIERA
 void mostrarUnAstronauta(char Nombre[])
 {
 
@@ -163,8 +169,8 @@ void mostrarUnAstronauta(char Nombre[])
                 {
                     if(opc == a.ID)
                         {
+                            printf("---------------------------------------- \n");
                             mostrarAstronauta(a);
-                            system("pause");
                         }
                 }
             fclose(archi);
@@ -174,7 +180,7 @@ void mostrarUnAstronauta(char Nombre[])
         }
 }
 
-//Esta segunda lista solo te muestra el nombre y el ID de los astronautas
+//FUNCION PARA MOSTRAR LOS ASTRONAUTAS (NOMBRE E ID)
 void listaDeAstronautas2 (char Nombre[])
 {
     StAstronauta a;
@@ -190,11 +196,13 @@ void listaDeAstronautas2 (char Nombre[])
         }
 }
 
+//FUNCION PARA DAR DE BAJA A UN ASTRONAUTA
 void bajaDeAstronauta(char Nombre[])
 {
     StAstronauta a;
     listaDeAstronautas2(Nombre);
 
+    int flag = 0;
     int opc;
     printf("Ingrese el ID del astronauta que quiere dar de baja: ");
     scanf("%i",&opc);
@@ -202,16 +210,15 @@ void bajaDeAstronauta(char Nombre[])
     FILE * archi = fopen(Nombre, "r+b");
     if(archi != NULL)
         {
-            while(fread(&a, sizeof(StAstronauta), 1, archi) > 0 )
+            while(flag == 0 && fread(&a, sizeof(StAstronauta), 1, archi) > 0 )
                 {
                     if(opc == a.ID)
                         {
                             a.Estado = 0;
                             fseek(archi, (-1)*sizeof(StAstronauta), SEEK_CUR);
                             fwrite(&a, sizeof(StAstronauta), 1, archi);
-                            fseek(archi, 0, SEEK_END);
+                            flag = 1;
                         }
-                    mostrarAstronauta(a);
                 }
 
             fclose(archi);
@@ -220,6 +227,8 @@ void bajaDeAstronauta(char Nombre[])
                     printf("ERROR!!");
                 }
 }
+
+//FUNCION MENU DE MODIFICACIONES
 void modificaciones(char Nombre[])
 {
     int opc ;
@@ -257,98 +266,122 @@ void modificaciones(char Nombre[])
     }while(opc == 0);
 }
 
-//MODIFICAR HORAS DE VUELO ACUMULADAS
-void modificarHVA(char Nombre[])
+//FUNCION PARA BUSCAR UN ARCHIVO ESPECIFICO
+int buscarArchivoEspecifico(char Nombre[])
 {
     StAstronauta a;
+    int opc, pos, cont = 0;
+
     listaDeAstronautas2(Nombre);
-    int aux;
-    int opc;
-    printf("Ingrese el ID del astronauta que desea modificar: ");
+
+    printf("Ingrese el ID del astronauta que desea buscar: ");
     scanf("%i",&opc);
 
-    FILE * archi = fopen(Nombre, " r+b");
+    FILE * archi = fopen(Nombre, "rb" );
     if(archi != NULL)
         {
             while(fread(&a, sizeof(StAstronauta), 1, archi))
                 {
                     if(opc == a.ID)
                         {
-                            printf("Ingrese la nueva cantidad de horas de vuelo acumuladas: ");
-                            scanf("%i",&aux);
-                            a.Experiencia = aux;
-                            fseek(archi, (-1)*sizeof(StAstronauta), SEEK_CUR);
-                            fwrite(&a, sizeof(StAstronauta), 1, archi);
-                            fseek(archi, 0, SEEK_END);
+                            pos = cont;
                         }
+                    cont++;
                 }
             fclose(archi);
         }else
         {
             printf("Error!");
         }
+    return pos;
+}
+
+//MODIFICAR HORAS DE VUELO ACUMULADAS
+void modificarHVA(char Nombre[])
+{
+    StAstronauta a;
+    int pos, aux;
+    pos = buscarArchivoEspecifico(Nombre);
+
+    FILE * archi = fopen(Nombre, "r+b");
+    if(archi != NULL)
+        {
+            printf("Ingrese la nueva cantidad de horas de vuelo acumuladas: ");
+            scanf("%i",&aux);
+
+            fseek(archi, (pos - 1) * sizeof(StAstronauta), SEEK_SET);
+            fread(&a, sizeof(StAstronauta), 1, archi);
+
+            a.Experiencia = aux;
+            fseek(archi, (-1) * sizeof(StAstronauta), SEEK_CUR);
+            fwrite(&a, sizeof(StAstronauta), 1, archi);
+            fseek(archi, 0, SEEK_END);
+
+            fclose(archi);
+
+        }else
+        {
+            printf("Error!!");
+        }
+
 }
 
 //MODIFICAR MISIONES REALIZADAS
 void modificarMER(char Nombre[])
 {
     StAstronauta a;
-    listaDeAstronautas2(Nombre);
-    int aux;
-    int opc;
-    printf("Ingrese el ID del astronauta que desea modificar: ");
-    scanf("%i",&opc);
+    int pos, aux;
+    pos = buscarArchivoEspecifico(Nombre);
 
-    FILE * archi = fopen(Nombre, " r+b");
+    FILE * archi = fopen(Nombre, "r+b");
     if(archi != NULL)
         {
-            while(fread(&a, sizeof(StAstronauta), 1, archi))
-                {
-                    if(opc == a.ID)
-                        {
-                            printf("Ingrese la nueva cantidad de Misiones Especiales Realizadas: ");
-                            scanf("%i",&aux);
-                            a.misionesR = aux;
-                            fseek(archi, (-1)*sizeof(StAstronauta), SEEK_CUR);
-                            fwrite(&a, sizeof(StAstronauta), 1, archi);
-                            fseek(archi, 0, SEEK_END);
-                        }
-                }
+            printf("Ingrese la nueva cantidad de misiones realizadas: ");
+            scanf("%i",&aux);
+
+            fseek(archi, (pos - 1) * sizeof(StAstronauta), SEEK_SET);
+            fread(&a, sizeof(StAstronauta), 1, archi);
+
+            a.misionesR = aux;
+            fseek(archi, (-1) * sizeof(StAstronauta), SEEK_CUR);
+            fwrite(&a, sizeof(StAstronauta), 1, archi);
+            fseek(archi, 0, SEEK_END);
+
             fclose(archi);
+
         }else
         {
-            printf("Error!");
+            printf("Error!!");
         }
+
 }
 
 //MODIFICAR LA CANTIDAD DE HORAS EN LA EEI
 void modificarHEEI(char Nombre[])
 {
     StAstronauta a;
-    listaDeAstronautas2(Nombre);
-    int aux;
-    int opc;
-    printf("Ingrese el ID del astronauta que desea modificar: ");
-    scanf("%i",&opc);
+    int pos, aux;
+    pos = buscarArchivoEspecifico(Nombre);
 
-    FILE * archi = fopen(Nombre, " r+b");
+    FILE * archi = fopen(Nombre, "r+b");
     if(archi != NULL)
         {
-            while(fread(&a, sizeof(StAstronauta), 1, archi))
-                {
-                    if(opc == a.ID)
-                        {
-                            printf("Ingrese la nueva cantidad horas en la Estacion Espacial Internacional: ");
-                            scanf("%i",&aux);
-                            a.HorasA = aux;
-                            fseek(archi, (-1)*sizeof(StAstronauta), SEEK_CUR);
-                            fwrite(&a, sizeof(StAstronauta), 1, archi);
-                            fseek(archi, 0, SEEK_END);
-                        }
-                }
+            printf("Ingrese la nueva cantidad de horas de vuelo acumuladas en EEI: ");
+            scanf("%i",&aux);
+
+            fseek(archi, (pos - 1) * sizeof(StAstronauta), SEEK_SET);
+            fread(&a, sizeof(StAstronauta), 1, archi);
+
+            a.HorasA = aux;
+            fseek(archi, (-1) * sizeof(StAstronauta), SEEK_CUR);
+            fwrite(&a, sizeof(StAstronauta), 1, archi);
+            fseek(archi, 0, SEEK_END);
+
             fclose(archi);
+
         }else
         {
-            printf("Error!");
+            printf("Error!!");
         }
+
 }

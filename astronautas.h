@@ -24,15 +24,19 @@ void listaDeAstronautas(char Nombre[]);
 void mostrarAstronauta(StAstronauta a);
 void listaDeAstronautas2 (char Nombre[]);
 
+//BUSQUEDA
+int buscarArchivoEspecifico(char Nombre[]);
+
 //LISTA SIMPLIFICADA DE ASTRONAUTAS
 void mostrarUnAstronauta(char Nombre[]);
-void modificar(char Nombre, int dato, StAstronauta aux);
-void modificarHVA(char Nombre[]);
 
 //MODIFICACIONES
 void bajaDeAstronauta(char nombre[]);
 void modificaciones(char Nombre[]);
 void modificarHVA(char Nombre[]);
 void modificarMER(char Nombre[]);
+
+//VERIFICACIONES
+StAstronauta verificEDAD(StAstronauta a);
 
 #endif // ASTRONAUTAS_H_INCLUDED

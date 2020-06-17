@@ -12,12 +12,13 @@
 	"astronautas.h"
 	"string.h"
 
-1592002387 source:e:\martin\practico-final-2020\main.c
+1592424365 source:e:\martin\practico-final-2020\main.c
 	<stdio.h>
 	<stdlib.h>
 	"astronautas.h"
+	"string.h"
 
-1592001974 e:\martin\practico-final-2020\astronautas.h
+1592101880 e:\martin\practico-final-2020\astronautas.h
 
 1591989466 source:e:\martin\practico-final-2020\mision.c
 	<stdio.h>
@@ -27,7 +28,13 @@
 
 1591988951 e:\martin\practico-final-2020\mision.h
 
-1592000617 source:e:\martin\practico-final-2020\astronautas.c
+1592101320 source:e:\martin\practico-final-2020\astronautas.c
+	<stdio.h>
+	<stdlib.h>
+	"astronautas.h"
+	"string.h"
+
+1592347672 source:e:\martin\practico-final-2020\verificastronauta.c
 	<stdio.h>
 	<stdlib.h>
 	"astronautas.h"

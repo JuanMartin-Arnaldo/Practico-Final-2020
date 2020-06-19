@@ -14,12 +14,30 @@ typedef struct {
     int Estado;
 } StAstronauta;
 
+//CARGA DE ASTRONAUTA
 void altaDeAstronauta(char Nombre[]);
-StAstronauta nuevoAstronauta();
+StAstronauta nuevoAstronauta(char Nombre[]);
 StAstronauta especialidad(StAstronauta nuevo);
-void listaDeAtronautas(char Nombre[]);
+
+//LISTA DE ASTRONAUTAS
+void listaDeAstronautas(char Nombre[]);
 void mostrarAstronauta(StAstronauta a);
+void listaDeAstronautas2 (char Nombre[]);
+
+//BUSQUEDA
+int buscarArchivoEspecifico(char Nombre[]);
+
+//LISTA SIMPLIFICADA DE ASTRONAUTAS
 void mostrarUnAstronauta(char Nombre[]);
-void listaDeAtronautas2 (char Nombre[]);
+
+//MODIFICACIONES
+void bajaDeAstronauta(char Nombre[]);
+void modificaciones(char Nombre[]);
+void modificarHVA(char Nombre[]);
+void modificarMER(char Nombre[]);
+
+//VERIFICACIONES
+int verificID(char Nombre[], int aux);
+StAstronauta verificEDAD(StAstronauta a);
 
 #endif // ASTRONAUTAS_H_INCLUDED

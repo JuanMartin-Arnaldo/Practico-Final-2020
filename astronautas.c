@@ -13,7 +13,7 @@ void altaDeAstronauta(char Nombre[])
         {
         while(control == 's')
             {
-                a = nuevoAstronauta();
+                a = nuevoAstronauta(Nombre);
                 fwrite(&a, sizeof(StAstronauta), 1, archi);
 
                 printf("Si desea continuar presione S, de lo contrario N: ");
@@ -28,12 +28,24 @@ void altaDeAstronauta(char Nombre[])
         }
 }
 //FUNCION COMPLEMENTARIA A LA F. DEL ALTA
-StAstronauta nuevoAstronauta()
+StAstronauta nuevoAstronauta(char Nombre[])
 {
     StAstronauta nuevo;
+    int aux;
+    int flag = 0;
 
     printf("Ingrese su numero de ID: ");
-    scanf("%i",&nuevo.ID);
+    scanf("%i",&aux);
+    flag = verificID(Nombre, aux);
+
+    if(flag == 1)
+        {
+            printf("Ese ID ya se encuentra en uso. Ingrese otro: ");
+            scanf("%i",&nuevo.ID);
+        }else
+        {
+            nuevo.ID = aux;
+        }
 
     printf("Ingrese su nombre: ");
     fflush(stdin);
@@ -55,7 +67,7 @@ StAstronauta nuevoAstronauta()
     fflush(stdin);
     gets(&nuevo.Nacionalidad);
 
-    nuevo = especialidad(nuevo); //SE LE HIZO UNA FUNCION ESPECIAL PARA UNA MEJOR LEGIBILIDAD Y FUNCIONABILIDAD DEL CODIGO
+    nuevo = especialidad(nuevo); //SE LE HIZO UNA FUNCION ESPECIAL PARA UNA MEJOR LEGIBILIDAD
 
     printf("Ingrese su cantidad de horas de vuelo acumuladas: ");
     scanf("%i",&nuevo.Experiencia);
@@ -97,7 +109,7 @@ StAstronauta nuevoAstronauta()
         strcpy(nuevo.Especialidad, "Biologo");
         break;
     case 5 :
-        printf("Ingrese su especialidad: ");
+        printf("Ingrese el nombre de su especialidad: ");
         fflush(stdin);
         scanf("%s",&nuevo.Especialidad);
         break;
@@ -120,12 +132,11 @@ void listaDeAtronautas(char Nombre[])
                 {
                     mostrarAstronauta(a);
                 }
-            cant = fclose(archi);
+            fclose(archi);
         }else
         {
             printf("Error!");
         }
-    printf("\n El archivo cerro con: %d datos \n",cant);
 }
 
 //FUNCION PARA MOSTRAR UN ASTRONAUTA DE MANERA COMPLETA
@@ -217,6 +228,7 @@ void bajaDeAstronauta(char Nombre[])
                             a.Estado = 0;
                             fseek(archi, (-1)*sizeof(StAstronauta), SEEK_CUR);
                             fwrite(&a, sizeof(StAstronauta), 1, archi);
+
                             flag = 1;
                         }
                 }
@@ -291,7 +303,7 @@ int buscarArchivoEspecifico(char Nombre[])
             fclose(archi);
         }else
         {
-            printf("Error!");
+            printf("Error! \n");
         }
     return pos;
 }
@@ -321,7 +333,7 @@ void modificarHVA(char Nombre[])
 
         }else
         {
-            printf("Error!!");
+            printf("Error! \n");
         }
 
 }
@@ -351,7 +363,7 @@ void modificarMER(char Nombre[])
 
         }else
         {
-            printf("Error!!");
+            printf("Error! \n");
         }
 
 }
@@ -381,7 +393,7 @@ void modificarHEEI(char Nombre[])
 
         }else
         {
-            printf("Error!!");
+            printf("Error! \n");
         }
 
 }
